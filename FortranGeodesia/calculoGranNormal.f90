@@ -6,7 +6,7 @@ PROGRAM granNormal
    IMPLICIT NONE
 
    !Declaración de variables
-   REAL :: gra, min, seg, lat, lon, h
+   REAL :: gra, min, seg, lat, lon, h, N
    CHARACTER(LEN = 1) :: dirLongitud
    REAL, PARAMETER :: a = 6378137.0 !Es el semieje mayor en WGS 84
    REAL, PARAMETER :: b = 6356752.314 !Es el semieje menor en WGS 84
