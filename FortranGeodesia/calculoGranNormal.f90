@@ -1,18 +1,20 @@
-PROGRAM granNormal
-   IMPLICIT NONE
 !Este codigo es una práctica inicial del uso de Fortran para calculos geodésicos
-!EL propósito de este código es calcular la gran normal para cualquier punto del elipsoide
+!El propósito de este código es calcular la gran normal para cualquier punto del elipsoide
 !En este código se asumen los angulos en grados sexagesimales
 
-!Declaración de variables
-   REAL :: gra, min, seg, lat, lon, h, N
-   CHARACTER :: dirLongitud
+PROGRAM granNormal
+   IMPLICIT NONE
+
+   !Declaración de variables
+   REAL :: gra, min, seg, lat, lon, h
+   CHARACTER(LEN = 1) :: dirLongitud
    REAL, PARAMETER :: a = 6378137.0 !Es el semieje mayor en WGS 84
-   REAL, PARAMETER :: b = 63567532.314 !Es el semieje menor en WGS 84
+   REAL, PARAMETER :: b = 6356752.314 !Es el semieje menor en WGS 84
    REAL, PARAMETER :: e2 = 6.69438E-3 !Es la excentricidad
+   REAL, PARAMETER :: rad = 3.1415926535 / 180.0 !Constante para convertir de grados a radianes
 
    !Solicitando la latitud en grados sexagesimales
-   WRITE(*,*) 'Bienvenido al primer cálculo geodésico realizado por Samuel en Fortran, por favore ingrese la latitud en sexagesimales'
+   WRITE(*,*) 'Bienvenido al primer cálculo geodésico realizado en Fortran, por favore ingrese la latitud en sexagesimales'
    READ(*,*) gra, min, seg
    IF (gra < 0.0) THEN
 
@@ -35,7 +37,7 @@ PROGRAM granNormal
    WRITE (*,*) 'Ingrese la dirección de la longitud (E/W):'
    READ (*,*) dirLongitud
    !El programa evalua si es este u oeste con el fin de realizar el mejor calculo posible
-   IF (dirLongituD == 'E') THEN
+   IF (dirLongitud == 'E') THEN
       lon = gra + (min/60.0) + (seg/3600.0)
    ELSE IF (dirLongitud == 'W') THEN
       lon = 360.0 - (gra + (min/60.0) + (seg/3600.0))
@@ -53,8 +55,7 @@ PROGRAM granNormal
    WRITE(*,*) 'La altura es: ', h, 'm'
 
    !Calculando la normal
-   N = a / (SQRT(1.0 - (e2 * ((SIND(lat))**2.0))))
-
+   N = (a / (SQRT(1.0 - (e2 * ((SIN(lat * rad))**2.0)))))
    WRITE(*,*) 'La normal es: ', N, 'm'
 
 END PROGRAM granNormal
