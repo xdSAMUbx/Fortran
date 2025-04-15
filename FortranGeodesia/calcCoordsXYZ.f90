@@ -27,6 +27,7 @@ PROGRAM coordsGeocentricas
    ELSE
       lat = gra + (min/60.0) + (seg/3600.0)
    END IF
+
    WRITE (*,*) 'La latitud es: ', gra, '° ', min, ''' ', seg, '"'
 
    !Solicitando la longitud
@@ -36,13 +37,17 @@ PROGRAM coordsGeocentricas
    READ (*,*) gra, min, seg
    WRITE(*,*) 'Ingrese la dirección de la longitud si es Este (E) u Oeste (W): '
    READ (*,*) dirLongitud
-   WRITE (*,*) 'La longitud es: ', gra, '° ', min, ''' ', seg, '"', dirLongitud
 
+   IF (seg > 60.0 .OR. min > 60.0 .OR. gra > 60.0) THEN
+      WRITE (*,*) 'Ingreso un número invalido, vuelva a intentarlo'
+   END IF
+
+   WRITE (*,*) 'La longitud es: ', gra, '° ', min, ''' ', seg,'" ', dirLongitud
 
    !Verificación la dirección de la longitud
-   IF (dirLongitud == 'W') THEN !Verifica si la dirección es correcta
+   IF (dirLongitud == 'W' .OR. gra < 0.0) THEN !Verifica si la dirección es correcta
       lon= 360.0 -(gra + (min/60.0) + (seg/3600.0))
-   ELSE IF (dirLongitud == 'E') THEN !Veifica si la longitud es Este
+   ELSE IF (dirLongitud == 'E' .OR. gra > 0.0) THEN !Veifica si la longitud es Este
       lon= gra + (min/60.0) + (seg/3600.0)
    ELSE !Verifica si la longitud es Oeste
       WRITE(*,*) 'No ingresó una dirección correcta, vuelva a intentearlo'
