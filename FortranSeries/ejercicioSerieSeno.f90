@@ -4,7 +4,7 @@ PROGRAM ejercicioSeries
 
    !Declarando las variables a usar
    REAL :: x, gra, min, seg, seno1, seno2, fac, den
-   INTEGER :: n, j, i
+   INTEGER :: n, i, j
    REAL, PARAMETER :: rad = 3.141593/180
 
    !Solicitando las variables
@@ -43,12 +43,12 @@ PROGRAM ejercicioSeries
    seno2 = 0.0
    den = 1.0
    fac = 1.0 !Si n es 0 entonces el factorial es 1
-   DO i = 1, n, 1
-      den = ((2*i)+ 1)
-      DO j = 1, INT(den)
-         fac = fac * REAL(j)
+   DO i = 0, n-1
+      den = ((2*i) + 1)
+      DO j = 0, INT(den-1)
+         fac = fac * j
       END DO
-      seno2 = seno2 + (REAL(((-1)**i))*((x*rad)**REAL((2*i + 1))))/(fac)
+      seno2 = seno2 + (REAL(((-1)**i))*((x*rad)**REAL(((2*i) + 1))))/(fac)
    END DO
 
    WRITE(*,*) 'Calculado por el seno de Fortran: ',seno1
